@@ -71,8 +71,5 @@ Recall: 0.3611111111111111
    macro avg       0.73      0.65      0.67       364
 weighted avg       0.81      0.83      0.81       364
 
-
-LOGISTISCHE REGRESSION
-
 Process finished with exit code 0
 '''

@@ -59,6 +59,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import roc_curve
 import matplotlib.pyplot as plt
 
+# ROC AUC Berechnung und Plotting
 logit_roc_auc = roc_auc_score(y_test, LRModel.predict(x_test))
 fpr, tpr, thresholds = roc_curve(y_test, LRModel.predict_proba(x_test)[:, 1])
 plt.figure()
@@ -85,11 +86,11 @@ print("ROC Score :", round(roc_auc_score(y_test, LRModel.predict(x_test)),5)*100
 import plotly.offline as py
 import plotly.graph_objs as go
 
-#correlation
+#Korrelation
 correlation = data.corr()
-#tick labels
+#Labels
 matrix_cols = correlation.columns.tolist()
-#convert to array
+#Array Umformung
 corr_array  = np.array(correlation)
 
 #Plotting
