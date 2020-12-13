@@ -37,6 +37,30 @@ LRModel = LogisticRegression()
 LRModel.fit(x_train, y_train)
 LRpredictions = LRModel.predict(x_test)
 
+
+# Confusion Matrix
+from sklearn.metrics import confusion_matrix
+xAx = np.array(y_test)
+yAx = np.array(LRpredictions)
+cm = confusion_matrix(xAx, yAx)
+print(cm)
+TP = cm[0, 0]
+FP = cm[1, 0]
+FN = cm[0, 1]
+TN = cm[1, 1]
+print("True Positive: ", TP, "\nFalse Negative: ", FN, "\nTrue Negative :", TN, "\nFalse Positive :", FP)
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+group_names = ["True Neg", "False Pos", "False Neg", "True Pos"]
+group_counts = ["{0:0.0f}".format(value) for value in cm.flatten()]
+group_percentages = ["{0:.2%}".format(value) for value in cm.flatten()/np.sum(cm)]
+labels = [f"{v1}\n{v2}\n{v3}" for v1, v2, v3 in zip(group_names,group_counts,group_percentages)]
+labels = np.asarray(labels).reshape(2,2)
+sns.heatmap(cm, annot=labels, fmt="", cmap='Blues')
+plt.show()
+
+
 feature_importance = LRModel.coef_[0]
 for i, v in enumerate(feature_importance):
     print(heads[i], 'Score: %.5f' % v)
@@ -117,4 +141,4 @@ layout = go.Layout(dict(title = "Korrelationsmatrix für Variablen",
 
 data = [trace]
 fig = go.Figure(data=data,layout=layout)
-py.plot(fig)
+#py.plot(fig)

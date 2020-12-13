@@ -82,6 +82,15 @@ FN = cm[0, 1]
 TN = cm[1, 1]
 print("True Positive: ", TP, "\nFalse Negative: ", FN, "\nTrue Negative :", TN, "\nFalse Positive :", FP)
 
+import seaborn as sns
+import matplotlib.pyplot as plt
+group_names = ["True Neg", "False Pos", "False Neg", "True Pos"]
+group_counts = ["{0:0.0f}".format(value) for value in cm.flatten()]
+group_percentages = ["{0:.2%}".format(value) for value in cm.flatten()/np.sum(cm)]
+labels = [f"{v1}\n{v2}\n{v3}" for v1, v2, v3 in zip(group_names,group_counts,group_percentages)]
+labels = np.asarray(labels).reshape(2,2)
+sns.heatmap(cm, annot=labels, fmt="", cmap='Blues')
+plt.show()
 
 from sklearn.metrics import classification_report
 print(classification_report(y_test, RFpredictions))
@@ -103,7 +112,7 @@ plt.ylabel('True Positive Rate')
 plt.title('Receiver operating characteristic')
 plt.legend(loc="lower right")
 plt.savefig('RF_ROC')
-plt.show()
+#plt.show()
 
 print("ROC Score :", round(roc_auc_score(y_test, RFmodel.predict(x_test)),5)*100,"%")
 
@@ -142,6 +151,7 @@ layout = go.Layout(dict(title = "Korrelationsmatrix für Variablen",
 
 data = [trace]
 fig = go.Figure(data=data,layout=layout)
-py.plot(fig)
+#py.plot(fig)
+#fig.write_json(fig, 'corr.json')
 
 
